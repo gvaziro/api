@@ -32,6 +32,31 @@ const dataTypes = [
 ]
 
 export function ApiDataSection() {
+  const codeString = `{
+  "account": "@techbrand",
+  "score": 7842,
+  "bot_percentage": 1.8,
+  "audience_quality": "exceptional",
+  "top_followers": {
+    "influencers": 2841,
+    "brands": 1523,
+    "media": 892
+  },
+  "growth_trend": "+42%",
+  "credibility_level": "legendary"
+}`
+
+  const renderColoredCode = (code: string) => {
+    return code.split("\n").map((line, index) => {
+      const coloredLine = line
+        .replace(/"([^"]+)":/g, '<span class="text-pink">"$1"</span>:')
+        .replace(/: "([^"]+)"/g, ': <span class="text-green-400">"$1"</span>')
+        .replace(/: (\d+\.?\d*)/g, ': <span class="text-foreground">$1</span>')
+
+      return <div key={index} dangerouslySetInnerHTML={{ __html: coloredLine || " " }} />
+    })
+  }
+
   return (
     <section className="border-t border-border/50 py-20 md:py-32">
       <div className="mx-auto max-w-7xl px-6">
@@ -60,68 +85,27 @@ export function ApiDataSection() {
           </div>
 
           {/* Code block - updated example */}
-          <div className="rounded-xl border border-border bg-card/50 p-6">
-            <div className="mb-4 flex items-center justify-between">
-              <span className="text-sm font-medium text-muted-foreground">Response Example</span>
-              <Badge variant="outline" className="border-pink/30 text-pink">
-                JSON
-              </Badge>
+          <div className="relative">
+            <div className="rounded-xl border border-border bg-card/50 p-6 backdrop-blur-sm shadow-2xl">
+              <div className="mb-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-red-500" />
+                  <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                  <div className="h-3 w-3 rounded-full bg-green-500" />
+                  <span className="ml-2 text-xs text-muted-foreground">api.tweetscout.io/v1/account</span>
+                </div>
+                <Badge variant="outline" className="border-pink/30 text-pink text-xs">
+                  JSON
+                </Badge>
+              </div>
+              <pre className="overflow-x-auto rounded-lg bg-black/40 p-4 border border-border/20 font-mono text-xs sm:text-sm leading-relaxed">
+                <code className="text-muted-foreground">{renderColoredCode(codeString)}</code>
+              </pre>
             </div>
-            <pre className="overflow-x-auto text-sm">
-              <code className="text-muted-foreground">
-                {`{`}
-                {"\n"}
-                {"  "}
-                <span className="text-pink">"account"</span>: <span className="text-green-400">"@techbrand"</span>,
-                {"\n"}
-                {"  "}
-                <span className="text-pink">"score"</span>: <span className="text-pink">7842</span>,{"\n"}
-                {"  "}
-                <span className="text-pink">"audience"</span>: {`{`}
-                {"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"total"</span>: <span className="text-foreground">48291</span>,
-                {"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"influencers"</span>:{" "}
-                <span className="text-foreground">423</span>,{"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"brands"</span>: <span className="text-foreground">89</span>,
-                {"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"verified"</span>: <span className="text-foreground">891</span>,
-                {"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"general"</span>: <span className="text-foreground">46888</span>
-                {"\n"}
-                {"  "}
-                {`}`},{"\n"}
-                {"  "}
-                <span className="text-pink">"bot_risk"</span>: {`{`}
-                {"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"percentage"</span>:{" "}
-                <span className="text-foreground">4.2</span>,{"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"flags"</span>: <span className="text-foreground">[]</span>
-                {"\n"}
-                {"  "}
-                {`}`},{"\n"}
-                {"  "}
-                <span className="text-pink">"growth"</span>: {`{`}
-                {"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"weekly_change"</span>:{" "}
-                <span className="text-green-400">"+12.4%"</span>,{"\n"}
-                {"    "}
-                <span className="text-muted-foreground">"trending"</span>: <span className="text-pink">true</span>
-                {"\n"}
-                {"  "}
-                {`}`}
-                {"\n"}
-                {`}`}
-              </code>
-            </pre>
+            
+            {/* Background effects */}
+            <div className="absolute -top-4 -right-4 -z-10 h-24 w-24 rounded-full bg-pink/20 blur-2xl" />
+            <div className="absolute -bottom-4 -left-4 -z-10 h-32 w-32 rounded-full bg-pink/10 blur-3xl" />
           </div>
         </div>
       </div>

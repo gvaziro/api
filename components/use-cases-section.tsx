@@ -108,10 +108,10 @@ function AnimatedBarChart() {
   const [heights, setHeights] = useState<number[]>(Array(20).fill(0))
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref)
-  const targetHeights = [30, 35, 25, 40, 38, 45, 50, 48, 55, 60, 58, 70, 75, 80, 78, 85, 90, 88, 95, 100]
 
   useEffect(() => {
     if (!isInView) return
+    const targetHeights = [30, 35, 25, 40, 38, 45, 50, 48, 55, 60, 58, 70, 75, 80, 78, 85, 90, 88, 95, 100]
     targetHeights.forEach((h, i) => {
       setTimeout(() => {
         setHeights((prev) => {
